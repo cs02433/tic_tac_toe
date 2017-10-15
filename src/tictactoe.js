@@ -17,7 +17,7 @@ function tictactoe(state, action) {
 
         };
 
-        newState.winner = newState.gameStatus === "over" ? state.currentPlayer : "";
+        newState.winner = newState.gameStatus === "Start" ? state.currentPlayer : "";
         return newState;
     }
     return getDefaultState();
@@ -28,7 +28,7 @@ function getDefaultState() {
             players: 2,
             currentPlayer:'player1',
             matrix:[['-','-','-'],['-','-','-'],['-','-','-']],
-            gameStatus:'running',
+            gameStatus:'Start',
             winner:''
         };
 }
@@ -40,7 +40,7 @@ function checkWhoWin(matrix) {
         var row = matrix[i];
         var concatenatedValues = row.join("");
         if(checkWin(concatenatedValues)) {
-            return 'over';
+            return 'Start';
         }
     }
 
@@ -51,7 +51,7 @@ function checkWhoWin(matrix) {
             col0.push(matrix[j][i]);
         }
         if(checkWin(col0.join(""))) {
-            return 'over';
+            return 'Start';
         }
     }
 
@@ -79,10 +79,10 @@ function checkWhoWin(matrix) {
                 diaData.push(matrix[x][y])
             }
             if(checkWin(diaData.join(""))) {
-                return "over";
+                return "Start";
             }
         }
-    return 'running';
+    return 'Reset';
 
 }
 
