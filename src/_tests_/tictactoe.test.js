@@ -78,6 +78,19 @@ it("when row 2 is winner", function(){
     expect(store.getState().gameStatus).toBe('running');
     store.dispatch({type:'next-move', x:1, y:2});
     expect(store.getState().gameStatus).toBe('over');
+    expect(store.getState().winner).toBe('player1');
+});
+it("when player 2 wins", function(){
+    store.dispatch({type:'start'});
+    store.dispatch({type:'next-move', x:1, y:0});
+    store.dispatch({type:'next-move', x:0, y:0});
+    store.dispatch({type:'next-move', x:2, y:0});
+    store.dispatch({type:'next-move', x:0, y:1});
+    expect(store.getState().gameStatus).toBe('running');
+    store.dispatch({type:'next-move', x:2, y:1});
+    store.dispatch({type:'next-move', x:0, y:2});
+    expect(store.getState().gameStatus).toBe('over');
+    expect(store.getState().winner).toBe('player2');
 });
 
 

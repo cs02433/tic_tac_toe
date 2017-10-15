@@ -9,13 +9,16 @@ function tictactoe(state, action) {
         return getDefaultState();
     } else if(action.type === 'next-move') {
 
-        return {
+        var newState = {
             players : 2,
             currentPlayer: getNextPlayer(state.matrix, state.currentPlayer,action.x, action.y),
             matrix: storeState(state.matrix, state.currentPlayer, action.x, action.y),
             gameStatus:checkWhoWin(state.matrix),
-            winner:'player2'
+
         };
+
+        newState.winner = newState.gameStatus === "over" ? state.currentPlayer : "";
+        return newState;
     }
     return getDefaultState();
 }
