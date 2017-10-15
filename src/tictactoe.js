@@ -5,15 +5,8 @@ function tictactoe(state, action) {
         return state;
     }
 
-
     if(action.type === 'start') {
-        return {
-            players: 2,
-            currentPlayer:'player1',
-            matrix:[['-','-','-'],['-','-','-'],['-','-','-']],
-            gameStatus:'running',
-            winner:''
-        }
+        return getDefaultState();
     } else if(action.type === 'next-move') {
 
         return {
@@ -24,71 +17,74 @@ function tictactoe(state, action) {
             winner:'player2'
         };
     }
-    return {
-         players: 2,
-         currentPlayer:'player1',
-         matrix:[['-','-','-'],['-','-','-'],['-','-','-']],
-         gameStatus:'running',
-         winner:''
-    };
+    return getDefaultState();
+}
+
+function getDefaultState() {
+        return {
+            players: 2,
+            currentPlayer:'player1',
+            matrix:[['-','-','-'],['-','-','-'],['-','-','-']],
+            gameStatus:'running',
+            winner:''
+        };
 }
 
 function checkWhoWin(matrix) {
 
-    var row0 = matrix[0];
-    var row1 = matrix[1];
-    var row2 = matrix[2];
-
-    var col0 = [];
-    col0.push(row0[0]);
-    col0.push(row1[0]);
-    col0.push(row2[0]);
-
-
-    var col1 = [];
-    col1.push(row0[1]);
-    col1.push(row1[1]);
-    col1.push(row2[1]);
-
-
-
-    var col2 = [];
-    col2.push(row0[2]);
-    col2.push(row1[2]);
-    col2.push(row2[2]);
-
-
-   var dia1 = [];
-    dia1.push(row0[0]);
-    dia1.push(row1[1]);
-    dia1.push(row2[2]);
-
-
-   var dia2 = [];
-    dia2.push(row0[2]);
-    dia2.push(row1[1]);
-    dia2.push(row2[0]);
-
-
-    if(checkRow(row0) || checkRow(row1) || checkRow(row2)) {
-        return 'over';
+    //check rows
+    for(var i=0;i<3;i++) {
+        var row = matrix[i];
+        var concatenatedValues = row.join("");
+        if(checkWin(concatenatedValues)) {
+            return 'over';
+        }
     }
 
-    if(checkRow(col0) || checkRow(col1) || checkRow(col2)) {
+    //check columns
+    for(var i=0;i<3;i++) {
+        var col0 = [];
+        for(var j=0;j<3;j++) {
+            col0.push(matrix[j][i]);
+        }
+        if(checkWin(col0.join(""))) {
             return 'over';
         }
+    }
 
+    //check diagonals
+    var topLeftToDownDiagonal = {
+        x:0,
+        y:0,
+        xChange:1,
+        yChange:1
+    }
 
-    if(checkRow(dia1) || checkRow(dia2)) {
-            return 'over';
+    var bottomLeftToUpDiagonal = {
+            x:2,
+            y:0,
+            xChange:-1,
+            yChange:1
         }
-
+        var diagonals = [topLeftToDownDiagonal, bottomLeftToUpDiagonal];
+        for(i=0;i<2;i++) {
+            var dia = diagonals[i];
+            var diaData = [];
+            for(var j=0;j<3;j++) {
+                var x = dia.x + j*dia.xChange;
+                var y = dia.y + j*dia.yChange;
+                diaData.push(matrix[x][y])
+            }
+            if(checkWin(diaData.join(""))) {
+                return "over";
+            }
+        }
     return 'running';
 
 }
 
-function checkRow(rowArr) {
-    var row = rowArr[0]+rowArr[1]+rowArr[2];
+function checkWin(row) {
+
     if(row === '000' || row === 'XXX') {
         return true;
 
