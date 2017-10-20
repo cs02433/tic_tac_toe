@@ -1,3 +1,91 @@
-.container input {
-    width:100px;
+
+
+
+* {box-sizing: border-box;}
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+.wrapper {
+    display:grid;
+    width:300px;
+    grid-gap:0px;
+    grid-auto-rows: minmax(100px, auto);
+    grid-auto-columns: minmax(100px, auto);
+    grid-column:repeat(3, 1fr);
+    margin: 0 auto;
+}
+
+h1 {
+
+}
+.wrapper > div {
+ font-size: 20px;
+    text-align:center;
+    position:relative;
+    top:50%;
+    transformY:translate(50%);
+    background-color:#a2a2a9;
+    border:1px solid #989191;
+}
+
+.one {
+    grid-column:1/2;
+    grid-row:1/2;
+}
+
+.two {
+    grid-column:2/3;
+    grid-row:1/2;
+
+}
+
+
+.three {
+    grid-column:3/4;
+    grid-row:1/2;
+
+}
+
+
+.four {
+    grid-column:1/2;
+    grid-row:2/3;
+
+}
+
+
+.five {
+    grid-column:2/3;
+    grid-row:2/3;
+
+}
+
+
+.six {
+    grid-column:3/4;
+    grid-row:2/3;
+
+}
+
+
+.seven {
+    grid-column:1/2;
+    grid-row:3/4;
+
+}
+
+
+.eight {
+    grid-column:2/3;
+    grid-row:3/4;
+
+}
+
+
+.none {
+    grid-column:3/4;
+    grid-row:3/4;
+
 }

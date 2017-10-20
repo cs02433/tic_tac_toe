@@ -11,7 +11,9 @@ function onClick(e) {
     var input = e.target;
     var x = input.getAttribute('data-x');
     var y = input.getAttribute('data-y');
-    var value = input.value;
+
+    var value = input.innerHTML;
+
     if(!x || !y) {
     reducer.dispatch({
                 type:'start'
